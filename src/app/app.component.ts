@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MaterialModule } from '../app/shared/material.module'
 
 @Component({
   selector: 'app-root',
