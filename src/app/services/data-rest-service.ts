@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { BehaviorSubject, Subject,  Observable, fromEventPattern } from 'rxjs'; // change to new RxJS 6 import syntax
+import { Observable } from 'rxjs'; 
 import { Kid } from '../models/hackerNewsKit';
 import { HackerNewsItemRef } from '../models/hackerNewsItemRef';
 import { HackerNewsStory } from '../models/hackerNewsStory';
@@ -10,7 +10,6 @@ import { HackerNewsComment } from '../models/hackerNewsComment';
 export class BaseRestService {
   host: string;
   baseHost: string;
-
   constructor() {
   }
 }
