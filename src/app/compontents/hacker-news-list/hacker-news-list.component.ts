@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { HackerNewsListService } from '../../services/hackerNews-list-service';
-import { Kid } from '../../models/hackerNewsKit';
+import * as moment from 'moment';
+// import { Kid } from '../../models/hackerNewsKit';
 import { HackerNewsItemRef } from '../../models/hackerNewsItemRef';
 import { HackerNewsStory } from '../../models/hackerNewsStory';
 
@@ -11,11 +11,12 @@ import { HackerNewsStory } from '../../models/hackerNewsStory';
   styleUrls: ['./hacker-news-list.component.css']
 })
 export class HackerNewsListComponent implements OnInit {
-
   storyList: HackerNewsStory[];
   constructor( private hackerNewsListService: HackerNewsListService ) { }
 
   ngOnInit(): void {
+    this.storyList = [];
+    /*
       this.storyList = [{
                         title: "story 1", 
                         descendants: 1, 
@@ -37,6 +38,7 @@ export class HackerNewsListComponent implements OnInit {
                         url: "maybe it will work"
                       }
                     ];
+                    */
           this.getHackerStoryDetails(5);
       }
                     
@@ -47,7 +49,6 @@ export class HackerNewsListComponent implements OnInit {
               for (i = 0; i <= rqRenderNum ; i++) {
                 this.hackerNewsListService.getHackerNewsStory(items[i]).subscribe(storyDetails => {
                   if ( storyDetails ) {
-                      // console.log('we are in list service, found data'); 
                       console.log(storyDetails);
                       this.storyList.push(storyDetails);
                   }
@@ -57,4 +58,3 @@ export class HackerNewsListComponent implements OnInit {
         }) // eof of subscribe block
     } // eof function
   }
-
