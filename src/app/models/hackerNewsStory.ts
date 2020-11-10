@@ -4,6 +4,7 @@ export class HackerNewsStory {
     by: string;
     descendants: number;
     id: number;
+    kids: Kid[];
     score: number;
     time: number;
     title: string;
@@ -13,6 +14,7 @@ export class HackerNewsStory {
     constructor() {
       this.by = '';
       this.descendants = null;
+      this.kids = null;
       this.id = null;
       this.score = null;
       this.time = null;

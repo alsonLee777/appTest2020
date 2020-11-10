@@ -2,14 +2,19 @@
 <!-- <div>Dummy text</div> -->
 
 <div *ngFor="let item of storyList; let i = index;">
-    <div class="lDiv"> {{ item.title }} <br/>
+    <div class="lDiv">{{i+1}} {{ item.title }} <br/>
+    </div>
+</div>
+
+<!-- <div *ngFor="let item of storyList; let i = index;">
+    <div class="lDiv">{{i}} {{ item.title }} <br/>
           by: {{ item.title }}<br/>
           descendants: {{ item.descendants }}<br/>
           id: {{ item.id }}<br/>
           score: {{ item.score }}<br/>
-          time: {{ moment(item.time) }}<br/>
+          time: {{ item.time }}<br/>
           type: {{ item.type }}<br/>
           url: {{ item.url }}
     </div>
-</div>
+</div> -->
 

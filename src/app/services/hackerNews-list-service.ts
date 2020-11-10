@@ -36,13 +36,15 @@ export class HackerNewsListService  {
         return subjectStory;
     }
 
-    getHackerNewsComment(referrenceId: HackerNewsItemRef): Observable<HackerNewsComment[]> {
+    getHackerNewsComment(refId: HackerNewsItemRef): Observable<HackerNewsComment[]> {
+        // console.log('in getHackerNews Comment');
+        // console.log(refId);
         const subject = new BehaviorSubject<HackerNewsComment[]>(undefined);
     
-        this.dataRestService.getOneHackerNewsComment( referrenceId
+        this.dataRestService.getOneHackerNewsComment( refId
           ).subscribe(response => {
           subject.next(response);
-          console.log(response);
+          // console.log(response);
         });
         return subject;
     }
