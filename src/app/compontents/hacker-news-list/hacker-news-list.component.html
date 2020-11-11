@@ -1,20 +1,30 @@
-
-<!-- <div>Dummy text</div> -->
-
-<div *ngFor="let item of storyList; let i = index;">
-    <div class="lDiv">{{i+1}} {{ item.title }} <br/>
+<div class="lDiv">
+    Top {{ storyListWithCommentsAsList.length }} HackerNews story with comments
+    <div *ngIf="showComments===0">
+       <button class="btnToggle" (click)="toggleShowComments()" mat-raised-button>Show Comments</button>
     </div>
+    <div *ngIf="showComments===1">
+        <button class="btnToggle" (click)="toggleShowComments()" mat-raised-button>Hide Comments</button>
+     </div>
 </div>
 
-<!-- <div *ngFor="let item of storyList; let i = index;">
-    <div class="lDiv">{{i}} {{ item.title }} <br/>
-          by: {{ item.title }}<br/>
-          descendants: {{ item.descendants }}<br/>
-          id: {{ item.id }}<br/>
+<div *ngFor="let item of storyListWithCommentsAsList; let i = index;">
+    <div class="lDiv">{{i+1}}.) <a href="{{ item.url }}" target="_blank">{{ item.title }} </a><br/>
+        <div class="lDiv2">
+          by: {{ item.by }}<br/>    
+          <!-- date: {{ item.time }}<br/>  -->         
+          descendants: {{ item.descendants }}<br/>        
           score: {{ item.score }}<br/>
-          time: {{ item.time }}<br/>
+          id: {{ item.id }}<br/>      
           type: {{ item.type }}<br/>
-          url: {{ item.url }}
+        </div>
     </div>
-</div> -->
-
+    <div *ngIf="showComments===1">
+        <div *ngFor="let commentItem of item.comments.slice(0, 5); let c = index;">
+            <div class="lDiv">
+            comment [{{c+1}}] &nbsp; by: {{ commentItem.by }}
+            <p [innerHtml]=commentItem.text ></p>
+            </div>
+        </div>
+    </div>
+</div> 

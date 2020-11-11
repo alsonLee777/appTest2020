@@ -1,10 +1,10 @@
-import { Kid } from '../models/hackerNewsKit'
+import { HackerNewsComment } from '../models/hackerNewsComment';
 
-export class HackerNewsStory {
+export class HackerNewsStoryWithComments {
     by: string;
     descendants: number;
     id: number;
-    kids: Kid[];
+    comments: HackerNewsComment[];
     score: number;
     time: any;
     title: string;
@@ -14,7 +14,7 @@ export class HackerNewsStory {
     constructor() {
       this.by = '';
       this.descendants = null;
-      this.kids = null;
+      this.comments = null;
       this.id = null;
       this.score = null;
       this.time = null;

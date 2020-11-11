@@ -2,3 +2,13 @@
     margin: 10px 25px 25px 25px;
     text-align: left;
 }
+.lDiv2 {
+    margin: 2px 25px 35px 25px;
+    text-align: left;
+}
+
+.btnToggle {
+    margin-left: 15px;
+    background-color: orange;
+    color: black;
+}

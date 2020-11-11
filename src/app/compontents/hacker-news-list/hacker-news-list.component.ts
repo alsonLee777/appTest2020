@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HackerNewsListService } from '../../services/hackerNews-list-service';
-import * as moment from 'moment';
-// import { Kid } from '../../models/hackerNewsKit';
 import { HackerNewsItemRef } from '../../models/hackerNewsItemRef';
 import { HackerNewsStory } from '../../models/hackerNewsStory';
 import { HackerNewsComment } from '../../models/hackerNewsComment';
+import { HackerNewsStoryWithComments } from '../../models/hackerNewsStoryWithComments';
 
 @Component({
   selector: 'app-hacker-news-list',
@@ -12,26 +11,30 @@ import { HackerNewsComment } from '../../models/hackerNewsComment';
   styleUrls: ['./hacker-news-list.component.css']
 })
 export class HackerNewsListComponent implements OnInit {
-  storyList: HackerNewsStory[];
+  storyListWithCommentsAsList: HackerNewsStoryWithComments[];
   commentList: any;
+  btnToggle: string;
+  showNumOfStories: number;
+  showComments: number;
 
   constructor( private hackerNewsListService: HackerNewsListService ) { }
 
   ngOnInit(): void {
-    this.storyList = [];
     this.commentList = [];
-
-    this.getHackerStoryDetails(5);
+    this.storyListWithCommentsAsList = [];
+    this.showNumOfStories = 9;
+    this.btnToggle = "Show Comments";
+    this.showComments = 1;
+    this.getHackerStoryDetails(this.showNumOfStories);
   }
                     
-      getHackerStoryDetails(rqRenderNum: number): any { 
+  getHackerStoryDetails(rqRenderNum: number): any { 
         this.hackerNewsListService.getTopHackerNewsItemRef().subscribe(items => {              
           if ( items ) {
               let i: number;
               for (i = 0; i <= rqRenderNum ; i++) {
                 this.hackerNewsListService.getHackerNewsStory(items[i]).subscribe(storyDetails => {
                   if ( storyDetails ) {
-                      // console.log(storyDetails);
                       console.log(storyDetails.kids.length);
                       if ( storyDetails.kids.length > 0 ) {
                         let maxCommentSize: number;
@@ -43,25 +46,39 @@ export class HackerNewsListComponent implements OnInit {
 
                         for (c = 0; c <= maxCommentSize ; c++) {
                             let commmentRefId : any;
-                            // console.log(storyDetails.kids[c]);
                             commmentRefId = storyDetails.kids[c];
-                            this.hackerNewsListService.getHackerNewsComment(commmentRefId).subscribe(commentDetails => {
-                              if ( commentDetails ) {
-                                  console.log("comment details");
-                                  console.log(commentDetails);
-                                  
-                                  this.commentList.push(commentDetails);
-            
-                              }
-                            }) 
-                          } // eof for loop c
-                      } 
-                      // console.log(this.commentList);
-                      this.storyList.push(storyDetails);
-                  }
-                }) 
+                              this.hackerNewsListService.getHackerNewsComment(commmentRefId).subscribe(commentDetails => {
+                                if ( commentDetails ) {                
+                                  this.commentList.push(commentDetails);   
+                                }   // eof commentDetails    
+                              }) // service
+                        } // eof for loop c
+                      } // eof storyDetails.kids length
+                      this.storyListWithCommentsAsList.push({
+                        id: storyDetails.id,
+                        title: storyDetails.title,
+                        by: storyDetails.by,
+                        descendants: storyDetails.descendants, 
+                        url: storyDetails.url,
+                        score: storyDetails.score,
+                        time: new Date(storyDetails.time).toLocaleDateString("en-US"),
+                        type: storyDetails.type,
+                        comments: this.commentList
+                      });  
+                  } // eof storyDetails
+                }); // eof Service
               } // eof for loop i
           } // eof of if items
         }) // eof of subscribe block
-    } // eof function
+  } // eof function
+
+  toggleShowComments()  {
+    if ( this.showComments === 0)  {
+       this.showComments = 1;
+       this.btnToggle = "Show Comments";
+    } else {
+      this.showComments = 0;
+      this.btnToggle = "Hide Comments";
+    }
   }
+}
