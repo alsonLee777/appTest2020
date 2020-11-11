@@ -22,7 +22,7 @@ export class HackerNewsListComponent implements OnInit {
   ngOnInit(): void {
     this.commentList = [];
     this.storyListWithCommentsAsList = [];
-    this.showNumOfStories = 9;
+    this.showNumOfStories = 10;
     this.btnToggle = "Show Comments";
     this.showComments = 1;
     this.getHackerStoryDetails(this.showNumOfStories);
